@@ -1,16 +1,19 @@
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
+// 填空让 `println` 输出，同时添加一些代码不要让最后一行的 `panic` 执行到
+fn main() {
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    if let Some(n) = six {
+        println!("{}", n)
+    }
+
+    panic!("不要让这行代码运行！");
 }
 
-fn main() {
-    let msg = Message::Move{x: 1, y: 1};
-
-    if let Message::Move{x: a, y: b} = msg {
-        assert_eq!(a, b);
-    } else {
-        panic!("NEVER LET THIS RUN！");
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
     }
 }
