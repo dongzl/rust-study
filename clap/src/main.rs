@@ -1,3 +1,4 @@
+use clap::Command;
 
 fn main() {
     // The code is OK start==================================
@@ -36,8 +37,8 @@ fn main() {
         .bin_name("root")
         .subcommand_required(true);
 
-    init_run(&cmd);
-    init_check(&cmd);
+    let cmd = init_run(cmd);
+    let cmd = init_check(cmd);
 
     let matches = cmd.get_matches();
     let matches = match matches.subcommand() {
@@ -49,7 +50,7 @@ fn main() {
     // The code is error end==================================
 }
 
-pub fn init_run(command: &clap::Command) {
+pub fn init_run(command: clap::Command) -> Command{
     command.subcommand(
         clap::command!("run")
             .arg(
@@ -57,10 +58,10 @@ pub fn init_run(command: &clap::Command) {
                     .required(false)
                     .allow_invalid_utf8(true),
             ),
-    );
+    )
 }
 
-pub fn init_check(command: &clap::Command) {
+pub fn init_check(command: clap::Command) -> Command{
     command.subcommand(
         clap::command!("check")
             .arg(
@@ -70,5 +71,5 @@ pub fn init_check(command: &clap::Command) {
             )
             .version("0.1.0")
             .help_template("{bin} ({version}) - {usage}"),
-    );
+    )
 }
