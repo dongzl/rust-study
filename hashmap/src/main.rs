@@ -49,4 +49,8 @@ fn main() {
     // 查询Yellow对应的值，若不存在则插入新值
     let v = scores.entry("Yellow").or_insert(50);
     assert_eq!(*v, 5); // 已经存在，因此50没有插入
+
+    let mut contacts = HashMap::new();
+    contacts.insert("Daniel", "798-1364");
+    contacts.insert("Ashley", 234);
 }
