@@ -4,10 +4,10 @@ use std::time::Duration;
 
 fn main() {
     let handle = thread::spawn(|| {
-       for i in 1..5 {
-           println!("hi number {} from the spawned thread!", i);
-           thread::sleep(Duration::from_micros(1));
-       }
+        for i in 1..5 {
+            println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_micros(1));
+        }
     });
 
     // handle.join().unwrap();
@@ -35,7 +35,7 @@ fn main() {
 
     for _ in 0..6 {
         let b = barrier.clone();
-        handles.push(thread::spawn(move|| {
+        handles.push(thread::spawn(move || {
             println!("before wait");
             b.wait();
             println!("after wait");
