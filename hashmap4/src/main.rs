@@ -1,3 +1,4 @@
+use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::sync::RwLock;
 
@@ -19,6 +20,8 @@ struct TenantManagerProvider {
 
 trait TenantManager {
     fn remove_user(&mut self, tenant: String, username: String);
+
+    fn put_user(&mut self, tenant: String, username: String);
 }
 
 impl TenantManager for TenantManagerProvider {
@@ -37,14 +40,29 @@ impl TenantManager for TenantManagerProvider {
         user_map.remove(&username);
         println!("after remove {}", user_map.len());
         println!("after remove {}", tenant.users.len());
+    }
 
-        // tenant.users compile is failure
-        // let mut user_map = tenant.users;
-        // println!("before remove {}", tenant.users.len());
-        // println!("before remove {}", user_map.len());
-        // user_map.remove(username.as_str());
-        // println!("after remove {}", user_map.len());
-        // println!("after remove {}", tenant.users.len());
+    fn put_user(&mut self, tenant: String, username: String) {
+        let mut tenants_map = self.tenants.write().unwrap();
+        let current = match tenants_map.get_mut(tenant.as_str()) {
+            Some(t) => t,
+            None => {
+                let new_tenant = Tenant {
+                    name: tenant.clone(),
+                    users: HashMap::new(),
+                };
+                tenants_map.insert(tenant.clone(), new_tenant);
+                // How to return this
+                tenants_map.get_mut(tenant.as_str()).unwrap()
+
+            }
+        };
+        let users = &mut current.users;
+        let user = User {
+            name: username.clone(),
+            dept: String::new(),
+        };
+        users.insert(username, user);
     }
 }
 
