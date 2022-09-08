@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 ///////// third lib /////////////
 struct ThirdPartPage<'a> {
     name: &'a str,
@@ -51,16 +53,22 @@ impl<'a> Owner<'a> {
 }
 
 fn main() {
-    let owner = Owner {
-        doc: Some(ThirdPartDoc {
-            page: ThirdPartPage {
-                name: "page",
-                content: "content"
-            }
-        })
-    };
+    // let owner = Owner {
+    //     doc: Some(ThirdPartDoc {
+    //         page: ThirdPartPage {
+    //             name: "page",
+    //             content: "content"
+    //         }
+    //     })
+    // };
+    //
+    // let res = owner.get_resource();
+    //
+    // println!("{}", res.unwrap().get_content());
 
-    let res = owner.get_resource();
+    let names = ["sunface", "sunfei"];
+    let ages = [18, 19];
+    let folks: HashMap<_, _> = names.into_iter().zip(ages.into_iter()).collect();
 
-    println!("{}", res.unwrap().get_content());
+    println!("{:?}",folks);
 }
