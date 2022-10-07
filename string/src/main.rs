@@ -14,6 +14,16 @@ fn main() {
     //
     // let s: &str = "Hello, world!";
 
+    let mut aa = Some(String::from(""));
+    let s = Some(String::from("b"));
+    let rs = return_string();
+    if rs.is_none() {
+        aa = s;
+    } else {
+        aa = rs;
+    }
+    println!("return_string -> {}", aa.unwrap());
+
     let mut s = String::from("Hello ");
     s.push('r');
     println!("追加字符 push() -> {}", s);
@@ -69,6 +79,10 @@ fn main() {
     result += "!!!";
 
     println!("连接字符串 + -> {}", result);
+}
+
+fn return_string() -> Option<String> {
+    Some(String::from("a"))
 }
 
 // fn first_word(s: &String) -> &str {
