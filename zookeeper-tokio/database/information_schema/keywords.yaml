@@ -1,0 +1,20 @@
+columns:
+  word:
+    caseSensitive: false
+    dataType: 12
+    generated: false
+    name: WORD
+    nullable: false
+    primaryKey: false
+    unsigned: false
+    visible: true
+  reserved:
+    caseSensitive: false
+    dataType: 4
+    generated: false
+    name: RESERVED
+    nullable: false
+    primaryKey: false
+    unsigned: false
+    visible: true
+name: KEYWORDS
