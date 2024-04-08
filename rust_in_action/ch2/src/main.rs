@@ -115,19 +115,56 @@
 //     println!("{}", res);
 // }
 
-use std::ops::Add;
-use std::time::Duration;
+// use std::ops::Add;
+// use std::time::Duration;
 
-fn add<T: Add<Output = T>>(i: T, j: T) -> T {
-    i + j
-}
+// fn add<T: Add<Output = T>>(i: T, j: T) -> T {
+//     i + j
+// }
+
+// fn main() {
+//     let floats = add(1.2, 3.4);
+//     let ints = add(10, 20);
+//     let durations = add(Duration::new(5, 0), Duration::new(10, 0));
+
+//     println!("{}", floats);
+//     println!("{}", ints);
+//     println!("{:?}", durations);
+// }
+
+// fn main() {
+//     let one = [1, 2, 3];
+//     let two: [u8; 3] = [1, 2, 3];
+//     let blank1 = [0; 3];
+//     let blank2: [u8; 3] = [0; 3];
+//     let arrays = [one, two, blank1, blank2];
+//     for a in &arrays {
+//         print!("{:?}: ", a);
+//         for n in a.iter() {
+//             print!("\t{} + 10 = {}", n, n+10);
+//         }
+//         let mut sum = 0;
+//         for i in 0..a.len() {
+//             sum += a[i];
+//         }
+//         println!("\t(Σ{:?} = {})", a, sum);
+//     } 
+// }
+
+use std::fs::File;
+use std::io::BufReader;
+use std::io::prelude::*;
 
 fn main() {
-    let floats = add(1.2, 3.4);
-    let ints = add(10, 20);
-    let durations = add(Duration::new(5, 0), Duration::new(10, 0));
-
-    println!("{}", floats);
-    println!("{}", ints);
-    println!("{:?}", durations);
+    let f = File::open("README.md").unwrap();    // <1>
+    let mut reader = BufReader::new(f);
+    let mut line = String::new();    // <2>
+    loop {
+        let len = reader.read_line(&mut line).unwrap(); // <3>
+        if len == 0 {
+            break
+        }
+        println!("{} ({} bytes long)", line, len);
+        line.truncate(0);    // <4>
+    }
 }
