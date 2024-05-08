@@ -42,7 +42,7 @@ async fn export(zk: Rc<ZooKeeper>, path: &str, export: &str) {
     // println!("children {:?}", children);
 
     for child in children.unwrap().iter() {
-        println!("Child {:?}", child);
+        // println!("Child {:?}", child);
         let path = format!("{}{}{}{}", path, "/", child, "/versions/0");
         println!("Path {}", path);
         let data = zk.get_data(&path).await.unwrap();
