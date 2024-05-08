@@ -10,10 +10,10 @@ async fn main() {
         .await
         .unwrap();
     let zk = Rc::new(zk);
-    export(zk.clone(), "/governance_ds/metadata/sys/schemas/sys/tables", "database/sys/").await;
-    export(zk.clone(), "/governance_ds/metadata/performance_schema/schemas/performance_schema/tables", "database/performance_schema/").await;
-    export(zk.clone(), "/governance_ds/metadata/mysql/schemas/mysql/tables", "database/mysql/").await;
-    export(zk.clone(), "/governance_ds/metadata/information_schema/schemas/information_schema/tables", "database/information_schema/").await;
+    export(Rc::clone(&zk), "/governance_ds/metadata/sys/schemas/sys/tables", "database/sys/").await;
+    export(Rc::clone(&zk), "/governance_ds/metadata/performance_schema/schemas/performance_schema/tables", "database/performance_schema/").await;
+    export(Rc::clone(&zk), "/governance_ds/metadata/mysql/schemas/mysql/tables", "database/mysql/").await;
+    export(Rc::clone(&zk), "/governance_ds/metadata/information_schema/schemas/information_schema/tables", "database/information_schema/").await;
 }
 
 async fn export(zk: Rc<ZooKeeper>, path: &str, export: &str) {
