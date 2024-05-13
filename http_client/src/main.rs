@@ -1,6 +1,7 @@
 use reqwest::header::HeaderMap;
 use serde_json::Value;
 use std::collections::HashMap;
+use std::env;
 
 async fn get(pin: &str) -> Result<HashMap<String, Value>, reqwest::Error> {
     let client = reqwest::Client::new();
@@ -38,7 +39,9 @@ async fn post() -> Result<HashMap<String, String>, reqwest::Error> {
 
 #[tokio::main]
 async fn main() {
-    if let Ok(resp) = get("dzllikelsw").await {
+    let args: Vec<String> = env::args().collect();
+    println!("{:?}", &args[1]);
+    if let Ok(resp) = get(args.get(1).unwrap()).await {
         println!("{:#?}", resp);
     }
 
